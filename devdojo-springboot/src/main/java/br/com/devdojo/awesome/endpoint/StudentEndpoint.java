@@ -13,13 +13,18 @@ import java.util.Arrays;
 import java.util.List;
 
 @RestController
-@RequestMapping("/student")
+@RequestMapping("/students")
 public class StudentEndpoint {
 
-    @Autowired
+
     private DateUtil dateUtil;
 
-    @RequestMapping(method = RequestMethod.GET, path = "/list")
+    @Autowired
+    public StudentEndpoint(DateUtil dateUtil){
+        this.dateUtil = dateUtil;
+    }
+
+    @RequestMapping(method = RequestMethod.GET)
     public List<Student> listAll() {
         System.out.println(dateUtil.formatLocalDateTimeToDatabaseStyle(LocalDateTime.now()));
         return Arrays.asList(new Student("Jailson"), new Student("Maria"), new Student("Jose"));

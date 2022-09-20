@@ -1,9 +1,13 @@
 package br.com.devdojo.youtube.endpoint;
 
 
+import br.com.devdojo.youtube.error.CustomErrorType;
 import br.com.devdojo.youtube.model.Student;
 import br.com.devdojo.youtube.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,12 +20,28 @@ import java.util.List;
 @RequestMapping("/student")
 public class StudentEndpoint {
 
-    @Autowired
-    private DateUtil dateUtil;
 
-    @RequestMapping(method = RequestMethod.GET, path = "/list")
-    public List<Student> listAll() {
+    private DateUtil dateUtil;
+    @Autowired
+    public StudentEndpoint(DateUtil dateUtil){
+        this.dateUtil = dateUtil;
+    }
+
+    @RequestMapping(method = RequestMethod.GET)
+    public ResponseEntity<?> listAll() {
         System.out.println(dateUtil.formatLocalDateTimeToDatabaseStyle(LocalDateTime.now()));
-        return Arrays.asList(new Student("Jailson"), new Student("Maria"), new Student("Jose"));
+        return new ResponseEntity<>(Student.studentsList, HttpStatus.OK);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, path = "/{id}")
+    public ResponseEntity<?> getStudentById(@PathVariable("id") int id) {
+        System.out.println(dateUtil.formatLocalDateTimeToDatabaseStyle(LocalDateTime.now()));
+        Student student = new Student();
+        student.setId(id);
+        int index = Student.studentsList.indexOf(student);
+        if (index == -1){
+            return new ResponseEntity<>(new  CustomErrorType("Student not found"),HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(Student.studentsList.get(index), HttpStatus.OK);
     }
 }
