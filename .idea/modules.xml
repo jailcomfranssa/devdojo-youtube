@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/DEV-DOJO(JAVA).iml" filepath="$PROJECT_DIR$/.idea/DEV-DOJO(JAVA).iml" />
       <module fileurl="file://$PROJECT_DIR$/devdojo-springboot/devdojo-springboot.iml" filepath="$PROJECT_DIR$/devdojo-springboot/devdojo-springboot.iml" />
+      <module fileurl="file://$PROJECT_DIR$/springboot-essentials/springboot-essentials.iml" filepath="$PROJECT_DIR$/springboot-essentials/springboot-essentials.iml" />
     </modules>
   </component>
 </project>
