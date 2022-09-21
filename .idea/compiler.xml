@@ -8,15 +8,18 @@
         <outputRelativeToContentRoot value="true" />
         <module name="springboot-essentials" />
         <module name="devdojo-springboot" />
+        <module name="devdojo" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="devdojo" target="11" />
       <module name="devdojo-springboot" target="11" />
       <module name="springboot-essentials" target="11" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="devdojo" options="-parameters" />
       <module name="devdojo-springboot" options="-parameters" />
       <module name="springboot-essentials" options="-parameters" />
     </option>
