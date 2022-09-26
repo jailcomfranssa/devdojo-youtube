@@ -1,6 +1,8 @@
 package br.com.devdojo.essentials.controller;
 
 import br.com.devdojo.essentials.domain.Anime;
+import br.com.devdojo.essentials.dto.AnimePostRequestBody;
+import br.com.devdojo.essentials.dto.AnimePutRequestBody;
 import br.com.devdojo.essentials.service.AnimeService;
 import br.com.devdojo.essentials.util.DateUtil;
 import lombok.extern.log4j.Log4j2;
@@ -17,11 +19,16 @@ import java.util.List;
 @RequestMapping("animes")
 public class AnimeController {
 
-    @Autowired
-    private DateUtil dateUtil;
+    private final DateUtil dateUtil;
+
+    private final AnimeService animeService;
 
     @Autowired
-    private AnimeService animeService;
+    public AnimeController(DateUtil dateUtil, AnimeService animeService) {
+        this.dateUtil = dateUtil;
+        this.animeService = animeService;
+
+    }
 
     @GetMapping
     public ResponseEntity<List<Anime>> list(){
@@ -38,7 +45,7 @@ public class AnimeController {
     }
 
     @PostMapping
-    public ResponseEntity<Anime>save(@RequestBody Anime anime){
+    public ResponseEntity<Anime>save(@RequestBody AnimePostRequestBody anime){
         log.info("SAVE: "+dateUtil.formatLocalDateTimeToDatabesseStyle(LocalDateTime.now()));
         Anime animeseve = animeService.save(anime);
         return ResponseEntity.ok(animeseve);
@@ -53,9 +60,9 @@ public class AnimeController {
     }
 
     @PutMapping
-    public ResponseEntity<Anime>replace(@RequestBody Anime anime){
+    public ResponseEntity<Void>replace(@RequestBody AnimePutRequestBody animePutRequestBody){
         log.info("UPDATE: "+dateUtil.formatLocalDateTimeToDatabesseStyle(LocalDateTime.now()));
-        Anime animeseve = animeService.replace(anime);
-        return ResponseEntity.ok(animeseve);
+        animeService.replace(animePutRequestBody);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

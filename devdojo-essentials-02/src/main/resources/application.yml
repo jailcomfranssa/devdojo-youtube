@@ -2,12 +2,12 @@ server:
   error:
     include-stacktrace: on_param
 
-#spring:
-#  datasource:
-#    url: jdbc:mysql://localhost:3306/school?createDatabaseIfNotExist=true
-#    username: root
-#    password: admin
-#    driver-class-name: com.mysql.cj.jdbc.Driver
-#  jpa:
-#    hibernate:
-#      ddl-auto: update
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/school?createDatabaseIfNotExist=true
+    username: root
+    password: admin
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
