@@ -3,11 +3,11 @@ package br.com.devdojo.essentials.service;
 import br.com.devdojo.essentials.domain.Anime;
 import br.com.devdojo.essentials.dto.AnimePostRequestBody;
 import br.com.devdojo.essentials.dto.AnimePutRequestBody;
+import br.com.devdojo.essentials.mapper.AnimeMapper;
 import br.com.devdojo.essentials.repository.AnimeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
@@ -30,7 +30,7 @@ public class AnimeService {
     }
 
     public Anime save(AnimePostRequestBody animePostRequestBody){
-        Anime anime = Anime.builder().name(animePostRequestBody.getName()).build();
+        Anime anime = AnimeMapper.INSTANCE.toAnime(animePostRequestBody);
         return animeRepository.save(anime);
     }
 
@@ -40,11 +40,8 @@ public class AnimeService {
 
     public void replace(AnimePutRequestBody animePutRequestBody){
         findById(animePutRequestBody.getId());
-        Anime anime = Anime.builder()
-                .id(animePutRequestBody.getId())
-                .name(animePutRequestBody.getName())
-                .build();
-
+        Anime anime = AnimeMapper.INSTANCE.toAnime(animePutRequestBody);
+        anime.setId(anime.getId());
         animeRepository.save(anime);
 
     }
