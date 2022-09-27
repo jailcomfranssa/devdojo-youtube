@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -53,7 +54,7 @@ public class AnimeController {
 
 
     @PostMapping
-    public ResponseEntity<Anime>save(@RequestBody AnimePostRequestBody anime){
+    public ResponseEntity<Anime>save(@RequestBody @Valid AnimePostRequestBody anime){
         log.info("SAVE: "+dateUtil.formatLocalDateTimeToDatabesseStyle(LocalDateTime.now()));
         Anime animeseve = animeService.save(anime);
         return ResponseEntity.ok(animeseve);

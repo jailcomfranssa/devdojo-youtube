@@ -9,6 +9,7 @@ import br.com.devdojo.essentials.repository.AnimeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
@@ -33,7 +34,7 @@ public class AnimeService {
         return animeRepository.findById(id)
                 .orElseThrow(()-> new BadRequestException("Anime not Fund"));
     }
-
+    @Transactional
     public Anime save(AnimePostRequestBody animePostRequestBody){
         Anime anime = AnimeMapper.INSTANCE.toAnime(animePostRequestBody);
         return animeRepository.save(anime);
