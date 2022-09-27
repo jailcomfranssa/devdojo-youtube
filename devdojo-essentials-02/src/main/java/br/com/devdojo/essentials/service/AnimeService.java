@@ -3,6 +3,7 @@ package br.com.devdojo.essentials.service;
 import br.com.devdojo.essentials.domain.Anime;
 import br.com.devdojo.essentials.dto.AnimePostRequestBody;
 import br.com.devdojo.essentials.dto.AnimePutRequestBody;
+import br.com.devdojo.essentials.exception.BadRequestException;
 import br.com.devdojo.essentials.mapper.AnimeMapper;
 import br.com.devdojo.essentials.repository.AnimeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,7 @@ public class AnimeService {
 
     public Anime findById(long id){
         return animeRepository.findById(id)
-                .orElseThrow(()-> new ResponseStatusException(HttpStatus.BAD_REQUEST,"Anime not Fund"));
+                .orElseThrow(()-> new BadRequestException("Anime not Fund"));
     }
 
     public Anime save(AnimePostRequestBody animePostRequestBody){

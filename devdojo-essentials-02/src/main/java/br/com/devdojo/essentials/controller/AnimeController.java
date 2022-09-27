@@ -71,6 +71,6 @@ public class AnimeController {
     public ResponseEntity<Anime>replace(@RequestBody AnimePutRequestBody animePutRequestBody){
         log.info("UPDATE: "+dateUtil.formatLocalDateTimeToDatabesseStyle(LocalDateTime.now()));
         Anime animeseve = animeService.replace(animePutRequestBody);
-        return new ResponseEntity<>(animeseve, HttpStatus.NO_CONTENT);
+        return ResponseEntity.ok(animeseve);
     }
 }
