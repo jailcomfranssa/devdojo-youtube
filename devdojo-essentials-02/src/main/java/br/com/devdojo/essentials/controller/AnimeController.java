@@ -44,6 +44,14 @@ public class AnimeController {
         return ResponseEntity.ok(anime);
     }
 
+    @GetMapping(path = "/nome")
+    public ResponseEntity<List<Anime>>findByIdName(@RequestParam String name){
+        log.info("LIST ID: "+dateUtil.formatLocalDateTimeToDatabesseStyle(LocalDateTime.now()));
+       List<Anime> anime = animeService.findByName(name);
+        return ResponseEntity.ok(anime);
+    }
+
+
     @PostMapping
     public ResponseEntity<Anime>save(@RequestBody AnimePostRequestBody anime){
         log.info("SAVE: "+dateUtil.formatLocalDateTimeToDatabesseStyle(LocalDateTime.now()));
@@ -60,9 +68,9 @@ public class AnimeController {
     }
 
     @PutMapping
-    public ResponseEntity<Void>replace(@RequestBody AnimePutRequestBody animePutRequestBody){
+    public ResponseEntity<Anime>replace(@RequestBody AnimePutRequestBody animePutRequestBody){
         log.info("UPDATE: "+dateUtil.formatLocalDateTimeToDatabesseStyle(LocalDateTime.now()));
-        animeService.replace(animePutRequestBody);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        Anime animeseve = animeService.replace(animePutRequestBody);
+        return new ResponseEntity<>(animeseve, HttpStatus.NO_CONTENT);
     }
 }

@@ -24,6 +24,10 @@ public class AnimeService {
         return animeRepository.findAll();
     }
 
+    public List<Anime> findByName(String name){
+        return animeRepository.findByName(name);
+    }
+
     public Anime findById(long id){
         return animeRepository.findById(id)
                 .orElseThrow(()-> new ResponseStatusException(HttpStatus.BAD_REQUEST,"Anime not Fund"));
@@ -38,12 +42,13 @@ public class AnimeService {
         animeRepository.delete(findById(id));
     }
 
-    public void replace(AnimePutRequestBody animePutRequestBody){
+    public Anime replace(AnimePutRequestBody animePutRequestBody){
         findById(animePutRequestBody.getId());
         Anime anime = AnimeMapper.INSTANCE.toAnime(animePutRequestBody);
         anime.setId(anime.getId());
         animeRepository.save(anime);
 
+        return anime;
     }
 
 
