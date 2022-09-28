@@ -7,10 +7,10 @@ import br.com.devdojo.essentials.exception.BadRequestException;
 import br.com.devdojo.essentials.mapper.AnimeMapper;
 import br.com.devdojo.essentials.repository.AnimeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -22,8 +22,8 @@ public class AnimeService {
         this.animeRepository = animeRepository;
     }
 
-    public List<Anime> listAll(){
-        return animeRepository.findAll();
+    public Page<Anime> listAll(Pageable pageable){
+        return animeRepository.findAll(pageable);
     }
 
     public List<Anime> findByName(String name){
