@@ -8,7 +8,6 @@ import javax.validation.constraints.NotNull;
 @Data
 public class AnimePostRequestBody {
 
-    @NotEmpty(message = "campo nome não pode ser nulo")
-    @NotNull(message = "campo nome não pode ser nulo")
+    @NotEmpty(message = "The anime name cannot be empty")
     private String name;
 }

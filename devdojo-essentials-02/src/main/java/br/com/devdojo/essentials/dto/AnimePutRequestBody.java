@@ -1,9 +1,9 @@
 package br.com.devdojo.essentials.dto;
 
-import lombok.Data;
+import lombok.*;
 
 @Data
 public class AnimePutRequestBody {
-    private long id;
+    private Long id;
     private String name;
 }
