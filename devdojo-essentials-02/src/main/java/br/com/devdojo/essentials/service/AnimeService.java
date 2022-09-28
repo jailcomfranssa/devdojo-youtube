@@ -53,11 +53,9 @@ public class AnimeService {
         return anime;
     }
 
-
-
-
-
-
+    public List<Anime> listAllNotPageable() {
+        return animeRepository.findAll();
+    }
 
 
 //    Service usando Array
