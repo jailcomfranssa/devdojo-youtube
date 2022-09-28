@@ -35,8 +35,8 @@ public class AnimeService {
                 .orElseThrow(()-> new BadRequestException("Anime not Fund"));
     }
     @Transactional
-    public Anime save(AnimePostRequestBody animePostRequestBody){
-        Anime anime = AnimeMapper.INSTANCE.toAnime(animePostRequestBody);
+    public Anime save(Anime anime){
+       // Anime anime = AnimeMapper.INSTANCE.toAnime(animePostRequestBody);
         return animeRepository.save(anime);
     }
 
@@ -44,9 +44,9 @@ public class AnimeService {
         animeRepository.delete(findById(id));
     }
 
-    public Anime replace(AnimePutRequestBody animePutRequestBody){
-        findById(animePutRequestBody.getId());
-        Anime anime = AnimeMapper.INSTANCE.toAnime(animePutRequestBody);
+    public Anime replace(Anime anime){
+        findById(anime.getId());
+        //Anime anime = AnimeMapper.INSTANCE.toAnime(animePutRequestBody);
         anime.setId(anime.getId());
         animeRepository.save(anime);
 

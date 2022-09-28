@@ -63,7 +63,7 @@ public class AnimeController {
 
 
     @PostMapping
-    public ResponseEntity<Anime>save(@RequestBody @Valid AnimePostRequestBody anime){
+    public ResponseEntity<Anime>save(@RequestBody @Valid Anime anime){
         log.info("SAVE: "+dateUtil.formatLocalDateTimeToDatabesseStyle(LocalDateTime.now()));
         Anime animeseve = animeService.save(anime);
         return ResponseEntity.ok(animeseve);
@@ -78,9 +78,9 @@ public class AnimeController {
     }
 
     @PutMapping
-    public ResponseEntity<Anime>replace(@RequestBody AnimePutRequestBody animePutRequestBody){
+    public ResponseEntity<Anime>replace(@RequestBody Anime anime){
         log.info("UPDATE: "+dateUtil.formatLocalDateTimeToDatabesseStyle(LocalDateTime.now()));
-        Anime animeseve = animeService.replace(animePutRequestBody);
+        Anime animeseve = animeService.replace(anime);
         return ResponseEntity.ok(animeseve);
     }
 }
