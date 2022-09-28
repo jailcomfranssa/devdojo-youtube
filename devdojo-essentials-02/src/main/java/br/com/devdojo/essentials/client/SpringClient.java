@@ -15,7 +15,7 @@ public class SpringClient {
 
 
         RestTemplate restTemplate = new RestTemplate();
-        String fooResourceUrl = "http://localhost:8080/animes/";
+        String fooResourceUrl = "http://localhost:8080/animes";
         String fooResourceUrlAll = "http://localhost:8080/animes/all";
 
         //Lista com ID
@@ -42,6 +42,14 @@ public class SpringClient {
         log.info("recuperar cabeçalho: ");
         HttpHeaders httpHeaders = restTemplate.headForHeaders(fooResourceUrl);
         log.info(httpHeaders);
+
+        HttpEntity<Anime> request = new HttpEntity<>(new Anime("bar"));
+        Anime foo = restTemplate.postForObject(fooResourceUrl, request, Anime.class);
+
+//        HttpEntity<Anime> request1 = new HttpEntity<>(new Anime("bar2"));
+//        ResponseEntity<Anime> response1 = restTemplate
+//                .exchange(fooResourceUrl, HttpMethod.POST, request1, Anime.class);
+
 
 
 
