@@ -33,6 +33,19 @@ public class SpringClient {
                 = restTemplate.getForEntity(fooResourceUrlAll , String.class);
         log.info(listAll);
 
+        Anime animeEntity = restTemplate
+                .getForObject(fooResourceUrl + "/1", Anime.class);
+        log.info(animeEntity.getId());
+        log.info(animeEntity.getName());
+
+        // recuperar cabeçalho
+        log.info("recuperar cabeçalho: ");
+        HttpHeaders httpHeaders = restTemplate.headForHeaders(fooResourceUrl);
+        log.info(httpHeaders);
+
+
+
+
 
     }
 
