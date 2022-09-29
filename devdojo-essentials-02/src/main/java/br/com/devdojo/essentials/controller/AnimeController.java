@@ -15,20 +15,18 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Log4j2
+
 @RestController
 @RequestMapping("/api/animes")
 public class AnimeController {
     @Autowired
     private AnimeService animeService;
 
-    @Autowired
-    private  DateUtil dateUtil;
+
 
     @PostMapping()
     public ResponseEntity<AnimeDto> createAnime(@RequestBody AnimeDto animeDto){
         AnimeDto createAnimeDto = this.animeService.salvar(animeDto);
-        log.info("SAVE: "+dateUtil.formatLocalDateTimeToDatabesseStyle(LocalDateTime.now()));
         return new ResponseEntity<>(createAnimeDto, HttpStatus.CREATED);
 
     }
