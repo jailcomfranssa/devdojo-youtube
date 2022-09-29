@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -25,13 +26,13 @@ public class AnimeController {
 
 
     @PostMapping()
-    public ResponseEntity<AnimeDto> createAnime(@RequestBody AnimeDto animeDto){
+    public ResponseEntity<AnimeDto> createAnime(@Valid @RequestBody AnimeDto animeDto){
         AnimeDto createAnimeDto = this.animeService.salvar(animeDto);
         return new ResponseEntity<>(createAnimeDto, HttpStatus.CREATED);
 
     }
     @PutMapping("/{animeId}")
-    public ResponseEntity<AnimeDto> updateAnime(@RequestBody AnimeDto animeDto, @PathVariable("animeId") Integer animeId){
+    public ResponseEntity<AnimeDto> updateAnime(@Valid @RequestBody AnimeDto animeDto, @PathVariable("animeId") Integer animeId){
         AnimeDto updateAnime = this.animeService.atualizar(animeDto,animeId);
         return ResponseEntity.ok(updateAnime);
         
