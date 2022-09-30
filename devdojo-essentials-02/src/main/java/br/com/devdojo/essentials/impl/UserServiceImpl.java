@@ -10,6 +10,7 @@ import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -42,9 +43,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Page<UserDto> listarTodos(Pageable pageable) {
-        Page<User> users = this.userRepository.findAll(pageable);
-        Page<UserDto> userDtos = (Page<UserDto>) users.stream().map(this::userToDto).collect(Collectors.toList());
+    public List<UserDto> listarTodos(Integer pageNumber, Integer pageSize) {
+
+        Pageable p = PageRequest.of(pageNumber,pageSize);
+        Page<User> users = this.userRepository.findAll(p);
+        List<User> allUser = users.getContent();
+
+        List<UserDto> userDtos = allUser.stream().map(this::userToDto).collect(Collectors.toList());
         log.info("LIST-ALL: "+dateUtil.formatLocalDateTimeToDatabesseStyle(LocalDateTime.now()));
         return userDtos;
     }

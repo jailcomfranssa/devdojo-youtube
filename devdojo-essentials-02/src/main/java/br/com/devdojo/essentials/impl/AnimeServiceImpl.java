@@ -12,6 +12,7 @@ import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -41,12 +42,17 @@ public class AnimeServiceImpl implements AnimeService {
     }
 
     @Override
-    public Page<AnimeDto> listarTodos(Pageable pageable) {
-        Page<Anime> animes = this.animeRepository.findAll(pageable);
-        Page<AnimeDto> animeDtos = (Page<AnimeDto>) animes.stream().map(this::animeToDto).collect(Collectors.toList());
-        log.info("ListAll: "+dateUtil.formatLocalDateTimeToDatabesseStyle(LocalDateTime.now()));
+    public List<AnimeDto> listarTodos(Integer pageNumber, Integer pageSize) {
+
+        Pageable p = PageRequest.of(pageNumber,pageSize);
+        Page<Anime> animes = this.animeRepository.findAll(p);
+        List<Anime> allAnime = animes.getContent();
+
+        List<AnimeDto> animeDtos = allAnime.stream().map(this::animeToDto).collect(Collectors.toList());
+        log.info("LIST-ALL: "+dateUtil.formatLocalDateTimeToDatabesseStyle(LocalDateTime.now()));
         return animeDtos;
     }
+
 
     @Override
     public List<AnimeDto> listarTodosNotPage() {

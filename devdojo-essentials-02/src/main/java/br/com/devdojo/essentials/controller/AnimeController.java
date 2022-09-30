@@ -48,8 +48,12 @@ public class AnimeController {
         return ResponseEntity.ok(this.animeService.listarTodosNotPage());
     }
     @GetMapping("/list")
-    public ResponseEntity<Page<AnimeDto>> getAllAnimeDto(Pageable pageable){
-        return ResponseEntity.ok(this.animeService.listarTodos(pageable));
+    public ResponseEntity<List<AnimeDto>> getAllAnimeDto(
+            @RequestParam(value = "pageNumber",defaultValue = "0",required = false) Integer pageNumber,
+            @RequestParam(value = "pageSize",defaultValue = "2",required = false) Integer pageSize
+    ){
+        List<AnimeDto> allAnime = this.animeService.listarTodos(pageNumber,pageSize);
+        return new ResponseEntity<List<AnimeDto>>(allAnime,HttpStatus.OK);
 
     }
     @GetMapping("/{animeId}")

@@ -1,5 +1,6 @@
 package br.com.devdojo.essentials.controller;
 
+import br.com.devdojo.essentials.dto.AnimeDto;
 import br.com.devdojo.essentials.dto.ApiResponse;
 import br.com.devdojo.essentials.dto.UserDto;
 import br.com.devdojo.essentials.service.UserService;
@@ -49,8 +50,12 @@ public class UserController {
         return ResponseEntity.ok(this.userService.listarTodosNotPage());
     }
     @GetMapping("/list")
-    public ResponseEntity<Page<UserDto>> getAllUser(Pageable pageable){
-        return ResponseEntity.ok(this.userService.listarTodos(pageable));
+    public ResponseEntity<List<UserDto>> getAllUser(
+            @RequestParam(value = "pageNumber",defaultValue = "0",required = false) Integer pageNumber,
+            @RequestParam(value = "pageSize",defaultValue = "1",required = false) Integer pageSize
+    ){
+        List<UserDto> allAnime = this.userService.listarTodos(pageNumber,pageSize);
+        return new ResponseEntity<List<UserDto>>(allAnime,HttpStatus.OK);
 
     }
 

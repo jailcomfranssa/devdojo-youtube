@@ -9,7 +9,7 @@ public interface BaseService <T> {
 
     public T salvar(T entidade);
 
-    public Page<T> listarTodos(Pageable pageable);
+    public List<T> listarTodos(Integer pageNumber, Integer pageSize);
 
     public List<T> listarTodosNotPage();
 
