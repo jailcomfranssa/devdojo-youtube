@@ -1,11 +1,14 @@
 package br.com.devdojo.essentials.client;
 
 import br.com.devdojo.essentials.domain.Anime;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
+import org.springframework.web.client.RequestCallback;
 import org.springframework.web.client.RestTemplate;
 
+import java.net.URI;
 import java.util.Arrays;
 import java.util.List;
 
@@ -39,9 +42,17 @@ public class SpringClient {
         log.info(animeEntity.getName());
 
         // criando POST com restTemplate
-        HttpEntity<Anime> request = new HttpEntity<>(new Anime("Harem Camp!"));
+        HttpEntity<Anime> request = new HttpEntity<>(new Anime("Sasaki to Miyano"));
         String animeSave = restTemplate.postForObject(fooResourceUrl, request, String.class);
         log.info("Cadastro de Anime: "+ animeSave);
+
+        HttpEntity<Anime> request2 = new HttpEntity<Anime>(new Anime("Kami Kuzu Idol"));
+        URI location = restTemplate.postForLocation(fooResourceUrl, request2);
+        log.info("02-Cadastro de Anime: "+ location);
+
+        String entityUrl = fooResourceUrl + "/" + 13;
+        restTemplate.delete(entityUrl);
+
 
 
 
