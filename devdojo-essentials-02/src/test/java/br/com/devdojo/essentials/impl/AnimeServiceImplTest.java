@@ -2,15 +2,12 @@ package br.com.devdojo.essentials.impl;
 
 import br.com.devdojo.essentials.dto.AnimeDto;
 import br.com.devdojo.essentials.service.AnimeService;
-import org.junit.jupiter.api.Assertions;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-
 
 import java.util.List;
 
@@ -45,8 +42,7 @@ class AnimeServiceImplTest {
         //verificação
         assertNotNull(listAnime.get(0).getId());
         assertEquals(listAnime.get(0).getName(),response.getName());
-
-
+        Assertions.assertThat(listAnime).isNotEmpty();
 
     }
 
