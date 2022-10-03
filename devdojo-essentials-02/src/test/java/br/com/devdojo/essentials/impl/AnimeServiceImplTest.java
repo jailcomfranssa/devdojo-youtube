@@ -3,12 +3,15 @@ package br.com.devdojo.essentials.impl;
 import br.com.devdojo.essentials.dto.AnimeDto;
 import br.com.devdojo.essentials.service.AnimeService;
 import org.assertj.core.api.Assertions;
+
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import javax.validation.ConstraintViolationException;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -63,6 +66,22 @@ class AnimeServiceImplTest {
 //    @Test
 //    void deletar() {
 //    }
+
+    @Test
+    @DisplayName("Save Throws Constraint ViolationException WhenNameIsEmpty")
+    void salva_ThrowsConstraintViolationException_WhenNameIsEmpty() {
+
+        //Test., Execução
+        AnimeDto response = new AnimeDto();
+
+        //verificação
+        Assertions.assertThatThrownBy(()-> this.animeService.salvar(response))
+                .isInstanceOf(ConstraintViolationException.class);
+        Assertions.assertThatExceptionOfType(ConstraintViolationException.class)
+                .isThrownBy(()->this.animeService.salvar(response))
+                .withMessageContaining("O nome não pode esta vazio");
+
+    }
 
     public AnimeDto createAnime(){
         AnimeDto animeDto = new AnimeDto();
