@@ -6,7 +6,9 @@ import javax.validation.constraints.*;
 
 @Getter
 @Setter
+@AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class AnimeDto {
     private int id;
 
