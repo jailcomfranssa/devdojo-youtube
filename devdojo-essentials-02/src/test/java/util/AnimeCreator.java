@@ -13,19 +13,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 @ExtendWith(MockitoExtension.class)
 public class AnimeCreator {
 
-    @Autowired
-    private static AnimeService animeService;
-
-    //    public static AnimeDto creatAnimeToBeServe(){
-//        return AnimeDto.builder()
-//                .name("Hajime no Ippo")
-//                .build();
-//    }
-    @Test
-    public static AnimeDto creatAnimeToBeServe() {
-        AnimeDto animeDto = new AnimeDto();
-        animeDto.setName("Shin Ikki Tousen");
-        return animeService.salvar(animeDto);
+        public static AnimeDto creatAnimeToBeServe(){
+        return AnimeDto.builder()
+                .name("Hajime no Ippo")
+                .build();
     }
 
     public static AnimeDto creatValidAnime() {
