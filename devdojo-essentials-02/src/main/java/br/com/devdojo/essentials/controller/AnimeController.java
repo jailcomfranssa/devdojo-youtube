@@ -30,7 +30,7 @@ public class AnimeController {
 
 
     @PostMapping()
-    @PreAuthorize("hasRole('ADMIN')")
+    //@PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<AnimeDto> createAnime(@Valid @RequestBody AnimeDto animeDto){
         AnimeDto createAnimeDto = this.animeService.salvar(animeDto);
         return new ResponseEntity<>(createAnimeDto, HttpStatus.CREATED);
@@ -65,7 +65,7 @@ public class AnimeController {
     public ResponseEntity<AnimeDto>getSingle(@PathVariable Integer animeId){
         return ResponseEntity.ok(this.animeService.buscar(animeId));
     }
-    @PreAuthorize("hasRole('ADMIN')")
+    //@PreAuthorize("hasRole('ADMIN')")
     @GetMapping("by-id/{animeId}")
     public ResponseEntity<AnimeDto>getById(@PathVariable Integer animeId, @AuthenticationPrincipal UserDetails userDetails){
         log.info(userDetails);
