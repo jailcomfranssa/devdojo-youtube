@@ -41,14 +41,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
         log.info("password {} " , passwordEncoder.encode("test"));
-//        auth.inMemoryAuthentication()
-//                .withUser("William")
-//                .password(passwordEncoder.encode("academic"))
-//                .roles("USER","ADMIN")
-//                .and()
-//                .withUser("Jailson")
-//                .password(passwordEncoder.encode("jayson"))
-//                .roles("USER","ADMIN");
+
+        auth.inMemoryAuthentication()
+                .withUser("William")
+                .password(passwordEncoder.encode("academic"))
+                .roles("USER","ADMIN")
+                .and()
+                .withUser("Jailson")
+                .password(passwordEncoder.encode("jayson"))
+                .roles("USER","ADMIN");
+
         auth.userDetailsService(userService).passwordEncoder(passwordEncoder);
     }
 }
