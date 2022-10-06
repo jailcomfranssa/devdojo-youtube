@@ -12,15 +12,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 @Log4j2
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Autowired
     private UserRepository userRepository;
@@ -94,6 +98,18 @@ public class UserServiceImpl implements UserService {
 
     }
 
+    @Override
+    public User findByEmail(String email){
+        return Optional.ofNullable(userRepository.findByEmail(email))
+                .orElseThrow(()-> new UsernameNotFoundException("E-mail não encontrado"));
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String email) {
+        return Optional.ofNullable(userRepository.findByEmail(email))
+                .orElseThrow(()-> new UsernameNotFoundException("E-mail não encontrado"));
+    }
+
     public User dtoToUser(UserDto userDto){
         User user = this.modelMapper.map(userDto,User.class);
         return user;
@@ -103,6 +119,9 @@ public class UserServiceImpl implements UserService {
         UserDto userDto = this.modelMapper.map(user,UserDto.class);
         return userDto;
     }
+
+
+
 
 //    public User dtoToUser(UserDto userDto){
 //        User user = new User();

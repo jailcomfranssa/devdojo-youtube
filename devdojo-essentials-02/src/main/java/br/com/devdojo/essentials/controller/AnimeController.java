@@ -65,7 +65,7 @@ public class AnimeController {
     public ResponseEntity<AnimeDto>getSingle(@PathVariable Integer animeId){
         return ResponseEntity.ok(this.animeService.buscar(animeId));
     }
-
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("by-id/{animeId}")
     public ResponseEntity<AnimeDto>getById(@PathVariable Integer animeId, @AuthenticationPrincipal UserDetails userDetails){
         log.info(userDetails);
