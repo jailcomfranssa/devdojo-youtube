@@ -21,3 +21,15 @@ logging:
       springframework: INFO
       hibernate:
         SQL: DEBUG
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+info:
+  app:
+    name: Spring Sample Application
+    description: This is my first spring boot application
+    version: 1.0.0
