@@ -4,6 +4,8 @@ import br.com.devdojo.essentials.dto.AnimeDto;
 import br.com.devdojo.essentials.dto.ApiResponse;
 import br.com.devdojo.essentials.service.AnimeService;
 import br.com.devdojo.essentials.util.DateUtil;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -43,6 +45,10 @@ public class AnimeController {
         
     }
     @DeleteMapping("/{id}")
+    @ApiResponses( value = {
+        @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "204", description = "Operação realizada com sucesso."),
+        @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "Este anime não existe na base de dado")
+    })
     public ResponseEntity<ApiResponse> deletarAnime(@PathVariable("id") Integer id){
         this.animeService.deletar(id);
         return new ResponseEntity<>(new ApiResponse("Anime Deleted Successfully", true), HttpStatus.OK);
@@ -53,6 +59,9 @@ public class AnimeController {
         return ResponseEntity.ok(this.animeService.listarTodosNotPage());
     }
     @GetMapping("/list")
+    @Operation(summary = "Lista todos os animes com paginação "
+                ,description = "{pageNumber defaultValue = 0} e {pageSize defaultValue =2}"
+                ,tags = {"anime"}) //configuração do swagger
     public ResponseEntity<List<AnimeDto>> getAllAnimeDto(
             @RequestParam(value = "pageNumber",defaultValue = "0",required = false) Integer pageNumber,
             @RequestParam(value = "pageSize",defaultValue = "2",required = false) Integer pageSize
